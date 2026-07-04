@@ -1,29 +1,38 @@
 pipeline {
-    agent { label 'dev-agent' }
-    
-    stages{
-        stage('Code'){
+    agent any
+
+    environment {
+        DOCKERHUB_USER = 'samithaagrapala'
+        IMAGE_NAME = "${DOCKERHUB_USER}/node-todo-app"
+    }
+
+    stages {
+        stage('Clone Repo') {
             steps {
-                git url: 'https://github.com/LondheShubham153/node-todo-cicd.git', branch: 'master'
+                git url: 'https://github.com/Agrapala/node-todo-cicd.git', branch: 'main'
             }
         }
-        stage('Build and Test'){
+
+        stage('Build Docker Image') {
             steps {
-                sh 'docker build . -t trainwithshubham/node-todo-app-cicd:latest' 
+                sh 'docker build -t $IMAGE_NAME:latest .'
             }
         }
-        stage('Login and Push Image'){
+
+        stage('Push to Docker Hub') {
             steps {
-                echo 'logging in to docker hub and pushing image..'
-                withCredentials([usernamePassword(credentialsId:'dockerHub',passwordVariable:'dockerHubPassword', usernameVariable:'dockerHubUser')]) {
-                    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                    sh "docker push trainwithshubham/node-todo-app-cicd:latest"
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                    sh 'docker push $IMAGE_NAME:latest'
                 }
             }
         }
-        stage('Deploy'){
+
+        stage('Deploy to Kubernetes') {
             steps {
-                sh 'docker-compose down && docker-compose up -d'
+                sh 'kubectl apply -f k8s/deployment.yaml'
+                sh 'kubectl apply -f k8s/service.yaml'
+                sh 'kubectl rollout restart deployment/node-todo-app'
             }
         }
     }
