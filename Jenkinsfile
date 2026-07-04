@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git url: 'https://github.com/Agrapala/node-todo-cicd.git', branch: 'main'
+                git url: 'https://github.com/Agrapala/node-todo-cicd.git', branch: 'master'
             }
         }
 
