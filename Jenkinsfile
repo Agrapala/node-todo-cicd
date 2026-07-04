@@ -1,5 +1,11 @@
 pipeline {
-    agent any
+    agent {
+        label 'docker'
+    }
+
+    options {
+        skipDefaultCheckout(true)
+    }
 
     environment {
         DOCKERHUB_USER = 'samithaagrapala'
@@ -9,7 +15,7 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git url: 'https://github.com/Agrapala/node-todo-cicd.git', branch: 'master'
+                checkout scm
             }
         }
 
