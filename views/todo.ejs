@@ -6,15 +6,26 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Node Todo</title>
+        <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%237c5cff'/%3E%3Cpath d='M7 12l3 3 7-7' stroke='white' stroke-width='2.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
         <link rel="stylesheet" href="/styles.css" />
     </head>
 
     <body class="page-shell">
         <main class="app-card">
             <header class="hero">
-                <p class="eyebrow">Node.js task tracker</p>
-                <h1>Keep the list moving.</h1>
-                <p class="hero-copy">Capture quick tasks, edit them in place, and clear them out when they are done.</p>
+                <div class="hero-text">
+                    <p class="eyebrow">Node.js task tracker</p>
+                    <h1>Keep the list moving.</h1>
+                    <p class="hero-copy">Capture quick tasks, edit them in place, and clear them out when they are done.</p>
+                </div>
+                <div class="brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 6h11M9 12h11M9 18h11" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <circle cx="4" cy="6" r="1.6" fill="currentColor" />
+                        <circle cx="4" cy="12" r="1.6" fill="currentColor" />
+                        <circle cx="4" cy="18" r="1.6" fill="currentColor" />
+                    </svg>
+                </div>
             </header>
 
             <section class="todo-panel">
@@ -32,14 +43,28 @@
                     <span class="todo-text"><%- todo %></span>
                 </div>
                 <div class="todo-actions">
-                    <a class="icon-button danger" href="/todo/delete/<%= index %>" aria-label="Delete todo">Delete</a>
-                    <a class="icon-button" href="/todo/<%= index %>" aria-label="Edit todo">Edit</a>
+                    <a class="icon-button" href="/todo/<%= index %>" aria-label="Edit todo">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 20l.9-3.6L15.4 6a1.5 1.5 0 0 1 2.1 0l.5.5a1.5 1.5 0 0 1 0 2.1L7.6 19.1 4 20Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                    <a class="icon-button danger" href="/todo/delete/<%= index %>" aria-label="Delete todo">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 7h14M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m-9 0 1 12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </a>
                 </div>
             </li>
             <% }); %>
         </ul>
                 <% } else { %>
                 <div class="empty-state">
+                    <div class="empty-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="currentColor" stroke-width="1.6" />
+                        </svg>
+                    </div>
                     <h3>No todos yet</h3>
                     <p>Add your first task using the form below.</p>
                 </div>
@@ -53,6 +78,8 @@
                     </div>
                 </form>
             </section>
+
+            <p class="app-footer">Built with Node.js &amp; Express</p>
         </main>
 
     </body>
