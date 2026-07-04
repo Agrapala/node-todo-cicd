@@ -3,26 +3,34 @@
 <html>
 
     <head>
-        <title>Edit <%- todo %></title>
-        <style>
-            a {
-                text-decoration: none;
-                color: black;
-            }
-
-        </style>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Edit task</title>
+        <link rel="stylesheet" href="/styles.css" />
     </head>
 
-    <body>
-        <h1>Edit <%- todo %>:</h1>
-        <form action="/todo/edit/<%= todoIdx %>" method="post">
-            <p>
-                <label for="editTodo">Change to:</label>
-                <input type="hidden" name="_method" value="PUT">
-                <input type="text" name="editTodo" id="editTodo" autofocus placeholder="<%- todo %>" />
-                <input type="submit" value="Save" />
-            </p>
-        </form>
+    <body class="page-shell">
+        <main class="app-card compact-card">
+            <header class="hero hero-small">
+                <p class="eyebrow">Update item</p>
+                <h1>Edit task</h1>
+                <p class="hero-copy">Refine the wording or replace the item completely.</p>
+            </header>
+
+            <section class="todo-panel">
+                <form class="todo-form" action="/todo/edit/<%= todoIdx %>" method="post">
+                    <label for="editTodo">Change this task</label>
+                    <input type="hidden" name="_method" value="PUT">
+                    <div class="form-row stacked">
+                        <input type="text" name="editTodo" id="editTodo" autofocus placeholder="<%- todo %>" value="<%- todo %>" />
+                        <div class="action-row">
+                            <a class="ghost-button" href="/todo">Cancel</a>
+                            <input type="submit" value="Save changes" />
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </main>
     </body>
 
 </html>

@@ -3,35 +3,58 @@
 <html>
 
     <head>
-        <title>Todo List APP test</title>
-        <style>
-            a {
-                text-decoration: none;
-                color: black;
-            }
-
-        </style>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Node Todo</title>
+        <link rel="stylesheet" href="/styles.css" />
     </head>
 
-    <body>
-        <h1>Jenkins is just Amazing</h1>
-        <ul>
+    <body class="page-shell">
+        <main class="app-card">
+            <header class="hero">
+                <p class="eyebrow">Node.js task tracker</p>
+                <h1>Keep the list moving.</h1>
+                <p class="hero-copy">Capture quick tasks, edit them in place, and clear them out when they are done.</p>
+            </header>
+
+            <section class="todo-panel">
+                <div class="panel-header">
+                    <h2>Todos</h2>
+                    <span class="count"><%= todolist.length %> items</span>
+                </div>
+
+                <% if (todolist.length > 0) { %>
+        <ul class="todo-list">
             <% todolist.forEach(function(todo, index) { %>
-            <li>
-                <a href="/todo/delete/<%= index %>">✘</a>
-                <a href="/todo/<%= index %>">✎</a>
-                <%- todo %>
+            <li class="todo-item">
+                <div class="todo-copy">
+                    <span class="todo-index">#<%= index + 1 %></span>
+                    <span class="todo-text"><%- todo %></span>
+                </div>
+                <div class="todo-actions">
+                    <a class="icon-button danger" href="/todo/delete/<%= index %>" aria-label="Delete todo">Delete</a>
+                    <a class="icon-button" href="/todo/<%= index %>" aria-label="Edit todo">Edit</a>
+                </div>
             </li>
             <% }); %>
         </ul>
+                <% } else { %>
+                <div class="empty-state">
+                    <h3>No todos yet</h3>
+                    <p>Add your first task using the form below.</p>
+                </div>
+                <% } %>
 
-        <form action="/todo/add/" method="post">
-            <p>
-                <label for="newtodo">What shoud I do?</label>
-                <input type="text" name="newtodo" id="newtodo" autofocus />
-                <input type="submit" value="Add" />
-            </p>
-        </form>
+                <form class="todo-form" action="/todo/add/" method="post">
+                    <label for="newtodo">What should I do?</label>
+                    <div class="form-row">
+                        <input type="text" name="newtodo" id="newtodo" placeholder="Type a new task" autofocus />
+                        <input type="submit" value="Add task" />
+                    </div>
+                </form>
+            </section>
+        </main>
+
     </body>
 
 </html>
